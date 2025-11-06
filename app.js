@@ -47,7 +47,17 @@ app.get('/', (req, res) => {
 
 // A test route to test.handlebars page
 app.get('/tiedot', (req, res) => {
-    res.render('tiedot')
+
+    // Call function getContainerData from module dbOperations
+    // It returns a promise so you need then to wait resultset
+    dbOperations.getContainerData().then(resultset => {
+
+        // Render the page and give a key to the resultset to be used
+        //used in handlebars code
+        res.render('tiedot', {containerData: resultset.rows});
+        console.log(resultset.rows)
+    })
+
 });
 
 // SERVER START

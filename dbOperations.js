@@ -14,7 +14,7 @@ const Pool = require('pg').Pool
 const connection = {
     host: '127.0.0.1',
     port: '5434',
-    database: 'kontti',
+    database: 'kontit',
     user: 'postgres',
     password: 'Q2werty7'
 };
@@ -27,7 +27,11 @@ const pool = new Pool(connection);
 
 // Get all rows from table kontti
 const getContainerData = async () => {
-    let query = 'SELECT * FROM public.kontti';
+    let query = 'SELECT * FROM public.kontit';
     let resultset = await pool.query(query);
     return resultset;
 }
+
+getContainerData().then(resultset => console.log(resultset.rows));
+// Export functions needed by the main app
+module.exports = {getContainerData}
